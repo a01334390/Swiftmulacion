@@ -19,6 +19,11 @@ class ViewController: NSViewController {
     @IBOutlet weak var miumms: NSTextField!
     @IBOutlet weak var smms: NSTextField!
     
+    /** M/M/s/K fields */
+    @IBOutlet weak var lambdammsk: NSTextField!
+    @IBOutlet weak var miummsk: NSTextField!
+    @IBOutlet weak var smmsk: NSTextField!
+    @IBOutlet weak var kmmsk: NSTextField!
     
     /** M/M/1 Answer Fields */
     @IBOutlet weak var romm1: NSTextField!
@@ -26,6 +31,21 @@ class ViewController: NSViewController {
     @IBOutlet weak var lmm1: NSTextField!
     @IBOutlet weak var wqmm1: NSTextField!
     @IBOutlet weak var wmm1: NSTextField!
+    
+    /** M/M/s Answer fields */
+    @IBOutlet weak var romms: NSTextField!
+    @IBOutlet weak var lqmms: NSTextField!
+    @IBOutlet weak var lmms: NSTextField!
+    @IBOutlet weak var wqmms: NSTextField!
+    @IBOutlet weak var wmms: NSTextField!
+    
+     /** M/M/s/K Answer fields */
+    @IBOutlet weak var rommsk: NSTextField!
+    @IBOutlet weak var lqmmsk: NSTextField!
+    @IBOutlet weak var lmmsk: NSTextField!
+    @IBOutlet weak var wqmmsk: NSTextField!
+    @IBOutlet weak var wmmsk: NSTextField!
+    
     
     
     override func viewDidLoad() {
@@ -59,10 +79,22 @@ class ViewController: NSViewController {
         let s = smms.integerValue
         
         let calculation = StackCalculator.mms(lambda,miu,s)
+        
+        romms.stringValue =  "𝜌: \(calculation.0)"
+        lqmms.stringValue = "Lq: \(calculation.1)"
+        lmms.stringValue = "L:\(calculation.2)"
+        wqmms.stringValue = "Wq: \(calculation.3)"
+        wmms.stringValue = "W: \(calculation.4)"
     }
     
+    @IBAction func calculateMMSK(_ sender: Any) {
+        let lambda = lambdammsk.doubleValue
+        let miu = miummsk.doubleValue
+        let s = smmsk.integerValue
+        let k = kmmsk.integerValue
+        
+        let calculation = StackCalculator.mmsk(lambda,miu,s,k)
+    }
     
-
-
 }
 

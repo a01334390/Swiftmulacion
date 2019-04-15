@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+    Calculadora de Simuladores de Pila
+*/
 class StackCalculator {
     /**
         Calcula el evento M/M/1 de teoria de colas
@@ -22,7 +25,7 @@ class StackCalculator {
             - W: (Double) Tiempo promedio en el sistema
     */
     
-    func mm1(_ lambda:Double,_ miu:Double) -> (Double,Double,Double,Double,Double){
+    static func mm1(_ lambda:Double,_ miu:Double) -> (Double,Double,Double,Double,Double){
         let ro = lambda / miu
         let Lq = (pow(lambda, 2))/(miu*(miu-lambda))
         let L = lambda / (miu - lambda)
@@ -45,22 +48,22 @@ class StackCalculator {
         - Wq: (Double) Numero esperado en la cola
         - W: (Double) Tiempo promedio en el sistema
      */
-    func mms(_ lambda:Double,_ miu:Double,_ s:Int) -> (Double,Double,Double,Double,Double){
+    static func mms(_ lambda:Double,_ miu:Double,_ s:Int) -> (Double,Double,Double,Double,Double){
         let ro:Double = lambda / (Double(s) * miu)
         var total:Double = 0
         
         for i in stride(from: 0, to: s, by: 1) {
             let pot = pow(lambda/miu,Double(i))
-            let nfac = factorial(factorialNumber: i)
-            total += pot/Double(nfac)
+            let nfac = self.factorial(factorialNumber: i)
+            total += pot/nfac
         }
         
         let pots:Double = pow(lambda/miu,Double(s))
-        let nfacs:Int = factorial(factorialNumber: s)
+        let nfacs:Double = self.factorial(factorialNumber: s)
         let total2:Double = pots/Double(nfacs)
         let p0:Double = 1/(total + total2*1/(1-lambda/(Double(s)*miu)))
         
-        let Lq:Double = (p0*pots*ro)/(Double(nfacs) * (1-ro) * (1-ro))
+        let Lq:Double = (p0*pots*ro)/(nfacs * (1-ro) * (1-ro))
         let L:Double = Lq + (lambda/miu)
         let Wq:Double = Lq/lambda
         let W:Double = Wq + 1/miu
@@ -72,20 +75,67 @@ class StackCalculator {
         Calcula el factorial de un numero entero
         - Parameters:
             - factorialNumber: (Int) El numero a calcular
-        - Returns: (Int) Numero factorial < 20!
-        - Warning: Solo genera hasta factorial 20 o el limite de numeros enteros
+        - Returns: (Double) Numero factorial < 170!
+        - Warning: Solo genera hasta factorial 170 o el limite de numeros dobles
     */
-    private func factorial(factorialNumber: Int) -> Int {
+    static func factorial(factorialNumber: Int) -> Double {
         if factorialNumber == 0 {
             return 1
-        } else {
-            return factorialNumber * factorial(factorialNumber: factorialNumber - 1)
         }
+        var a: Double = 1
+        for i in 1...factorialNumber {
+            a *= Double(i)
+        }
+        return a
     }
 
-    
-    static func mmsk(){
+    /**
+     Calcula el evento M/M/s/K de teoria de colas
+     - Parameters:
+        - lambda: (Double) Tasa promedio de llegada
+        - miu: (Double) Tasa promedio de servicio
+        - s: (Int) Numero de servidores en paralelo
+        - k: (Int) Limite de personas en la cola
+     - Returns:
+        - 𝜌: (Double) Tasa de utilización
+        - Lq: (Double) Numero promedio de clientes en la cola
+        - L: (Double) Numero promedio de clientes en el sistema
+        - Wq: (Double) Numero esperado en la cola
+        - W: (Double) Tiempo promedio en el sistema
+     */
+    static func mmsk(_ lambda:Double,_ miu:Double,_ s:Int,_ k:Int) -> (Double,Double,Double,Double,Double){
+        let ro:Double = lambda / (Double(s)*miu)
+        var total:Double = 0
         
+        for i in stride(from: 0, through: s, by: 1){
+            let pot:Double = pow(lambda/miu,Double(i))
+            let nFac:Double = StackCalculator.factorial(factorialNumber: i)
+            total += pot/nFac
+        }
+        
+        let pots:Double = pow(lambda/miu,Double(s))
+        let nfacs:Double = StackCalculator.factorial(factorialNumber: s)
+        let total2 = pots/nfacs
+        
+        var total3:Double = 0
+        for i in stride(from: s+1, through: k, by: 1){
+            let pot:Double = pow(ro,Double(i-s))
+            total3 += pot
+        }
+        
+        let p0:Double = 1 / (total + total2*total3)
+        let potRo:Double = pow(ro,Double(k-s))
+        let lq2:Double = 1 - potRo - Double(k-s)*potRo*(1-ro)
+        let lq:Double = (p0*pots*ro)/(nfacs*(1-ro)*(1-ro))
+        let Lq:Double = lq*lq2
+        
+        
+        
+        return (ro,Lq,0,0,0)
+    }
+    
+    static func pCalculus(_ lambda:Double,_ miu:Double,_ p0:Double,_ s:Double,_ k:Double){
+    
     }
     
     static func mg1(){
