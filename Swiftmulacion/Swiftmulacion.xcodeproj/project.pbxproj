@@ -13,7 +13,7 @@
 		BD33836F2264F3B7009CB282 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD33836D2264F3B7009CB282 /* Main.storyboard */; };
 		BD33837B2264F3B7009CB282 /* SwiftmulacionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD33837A2264F3B7009CB282 /* SwiftmulacionTests.swift */; };
 		BD3383862264F3B7009CB282 /* SwiftmulacionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3383852264F3B7009CB282 /* SwiftmulacionUITests.swift */; };
-		BD3383942264F5F2009CB282 /* StackSimulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD3383932264F5F2009CB282 /* StackSimulation.swift */; };
+		BDBF22D522650391008E3A82 /* StackCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDBF22D422650391008E3A82 /* StackCalculator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,7 +47,7 @@
 		BD3383812264F3B7009CB282 /* SwiftmulacionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftmulacionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD3383852264F3B7009CB282 /* SwiftmulacionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftmulacionUITests.swift; sourceTree = "<group>"; };
 		BD3383872264F3B7009CB282 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BD3383932264F5F2009CB282 /* StackSimulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackSimulation.swift; sourceTree = "<group>"; };
+		BDBF22D422650391008E3A82 /* StackCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackCalculator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +104,7 @@
 				BD33836D2264F3B7009CB282 /* Main.storyboard */,
 				BD3383702264F3B7009CB282 /* Info.plist */,
 				BD3383712264F3B7009CB282 /* Swiftmulacion.entitlements */,
-				BD3383932264F5F2009CB282 /* StackSimulation.swift */,
+				BDBF22D422650391008E3A82 /* StackCalculator.swift */,
 			);
 			path = Swiftmulacion;
 			sourceTree = "<group>";
@@ -257,7 +257,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BD3383942264F5F2009CB282 /* StackSimulation.swift in Sources */,
+				BDBF22D522650391008E3A82 /* StackCalculator.swift in Sources */,
 				BD33836A2264F3B6009CB282 /* ViewController.swift in Sources */,
 				BD3383682264F3B6009CB282 /* AppDelegate.swift in Sources */,
 			);
