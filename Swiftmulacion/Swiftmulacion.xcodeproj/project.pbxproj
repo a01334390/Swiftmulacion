@@ -98,13 +98,11 @@
 		BD3383662264F3B6009CB282 /* Swiftmulacion */ = {
 			isa = PBXGroup;
 			children = (
-				BD3383672264F3B6009CB282 /* AppDelegate.swift */,
-				BD3383692264F3B6009CB282 /* ViewController.swift */,
+				BDBF22D722654110008E3A82 /* Controller */,
+				BDBF22D6226540FF008E3A82 /* View */,
 				BD33836B2264F3B7009CB282 /* Assets.xcassets */,
-				BD33836D2264F3B7009CB282 /* Main.storyboard */,
 				BD3383702264F3B7009CB282 /* Info.plist */,
 				BD3383712264F3B7009CB282 /* Swiftmulacion.entitlements */,
-				BDBF22D422650391008E3A82 /* StackCalculator.swift */,
 			);
 			path = Swiftmulacion;
 			sourceTree = "<group>";
@@ -125,6 +123,24 @@
 				BD3383872264F3B7009CB282 /* Info.plist */,
 			);
 			path = SwiftmulacionUITests;
+			sourceTree = "<group>";
+		};
+		BDBF22D6226540FF008E3A82 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BD33836D2264F3B7009CB282 /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BDBF22D722654110008E3A82 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BD3383672264F3B6009CB282 /* AppDelegate.swift */,
+				BD3383692264F3B6009CB282 /* ViewController.swift */,
+				BDBF22D422650391008E3A82 /* StackCalculator.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

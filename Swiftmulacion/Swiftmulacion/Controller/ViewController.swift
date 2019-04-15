@@ -29,6 +29,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var lambdamg1: NSTextField!
     @IBOutlet weak var miumg1: NSTextField!
     @IBOutlet weak var smg1: NSTextField!
+    @IBOutlet weak var kmg1: NSTextField!
     
     /** M/M/1 Answer Fields */
     @IBOutlet weak var romm1: NSTextField!
@@ -116,8 +117,9 @@ class ViewController: NSViewController {
         let lambda = lambdamg1.doubleValue
         let miu = miumg1.doubleValue
         let s = smg1.integerValue
+        let k = kmg1.integerValue
         
-        let calculation = StackCalculator.mg1(lambda,miu,s)
+        let calculation = StackCalculator.mg1(lambda, miu, s, k)
         
         romg1.stringValue =  "𝜌: \(calculation.0)"
         lqmg1.stringValue = "Lq: \(calculation.1)"
