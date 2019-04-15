@@ -70,24 +70,6 @@ class StackCalculator {
         
         return (ro,Lq,L,Wq,W)
     }
-    
-    /**
-        Calcula el factorial de un numero entero
-        - Parameters:
-            - factorialNumber: (Int) El numero a calcular
-        - Returns: (Double) Numero factorial < 170!
-        - Warning: Solo genera hasta factorial 170 o el limite de numeros dobles
-    */
-    static func factorial(factorialNumber: Int) -> Double {
-        if factorialNumber == 0 {
-            return 1
-        }
-        var a: Double = 1
-        for i in 1...factorialNumber {
-            a *= Double(i)
-        }
-        return a
-    }
 
     /**
      Calcula el evento M/M/s/K de teoria de colas
@@ -129,16 +111,63 @@ class StackCalculator {
         let lq:Double = (p0*pots*ro)/(nfacs*(1-ro)*(1-ro))
         let Lq:Double = lq*lq2
         
-        
-        
-        return (ro,Lq,0,0,0)
+        let lambdaE:Double = lambda*(1-StackCalculator.pCalculus(lambda, miu, p0, Double(s), Double(k)))
+        let Wq:Double = Lq / lambdaE
+        let W:Double = Wq + 1/miu
+        let L: Double = lambdaE * W
+    
+        return (ro,Lq,L,Wq,W)
     }
     
-    static func pCalculus(_ lambda:Double,_ miu:Double,_ p0:Double,_ s:Double,_ k:Double){
-    
-    }
     
     static func mg1(){
         
     }
+    
+    /**
+     Calcula el factorial de un numero entero
+     - Parameters:
+     - factorialNumber: (Int) El numero a calcular
+     - Returns: (Double) Numero factorial < 170!
+     - Warning: Solo genera hasta factorial 170 o el limite de numeros dobles
+     */
+    static func factorial(factorialNumber: Int) -> Double {
+        if factorialNumber == 0 {
+            return 1
+        }
+        var a: Double = 1
+        for i in 1...factorialNumber {
+            a *= Double(i)
+        }
+        return a
+    }
+    
+    /**
+     Calculo del factor p
+     - Parameters:
+        - lambda: (Double) Tasa promedio de llegada
+        - miu: (Double) Tasa promedio de servicio
+        - p0: (Double) P sub cero
+        - s: (Double) Numero de servidores en paralelo
+        - k: (Double) Limite de personas en la cola
+     - Returns: (Double) Factor p
+ 
+    */
+    static func pCalculus(_ lambda:Double,_ miu:Double,_ p0:Double,_ s:Double,_ k:Double) -> Double {
+        var total:Double = 0
+        var milm:Double = 0
+        var tot: Double = 0
+        let i:Double = k
+        
+        milm = pow(lambda/miu,i)
+        if i < s {
+            tot = milm / StackCalculator.factorial(factorialNumber: Int(i))
+        } else if i >= s && i <= k {
+            tot = milm / StackCalculator.factorial(factorialNumber: Int(s)) * pow(s,(i-s))
+        }
+        
+        total += tot*p0
+        return total
+    }
+    
 }

@@ -94,6 +94,12 @@ class ViewController: NSViewController {
         let k = kmmsk.integerValue
         
         let calculation = StackCalculator.mmsk(lambda,miu,s,k)
+        
+        rommsk.stringValue =  "𝜌: \(calculation.0)"
+        lqmmsk.stringValue = "Lq: \(calculation.1)"
+        lmmsk.stringValue = "L:\(calculation.2)"
+        wqmmsk.stringValue = "Wq: \(calculation.3)"
+        wmmsk.stringValue = "W: \(calculation.4)"
     }
     
 }
