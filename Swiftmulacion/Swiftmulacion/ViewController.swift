@@ -13,6 +13,13 @@ class ViewController: NSViewController {
     /** M/M/1 fields */
     @IBOutlet weak var lambdamm1: NSTextField!
     @IBOutlet weak var miumm1: NSTextField!
+    
+    /** M/M/s fields */
+    @IBOutlet weak var lambdamms: NSTextField!
+    @IBOutlet weak var miumms: NSTextField!
+    @IBOutlet weak var smms: NSTextField!
+    
+    
     /** M/M/1 Answer Fields */
     @IBOutlet weak var romm1: NSTextField!
     @IBOutlet weak var lqmm1: NSTextField!
@@ -45,6 +52,15 @@ class ViewController: NSViewController {
         wqmm1.stringValue = "Wq: \(calculation.3)"
         wmm1.stringValue = "W: \(calculation.4)"
     }
+    
+    @IBAction func calculateMMS(_ sender: Any) {
+        let lambda = lambdamms.doubleValue
+        let miu = miumms.doubleValue
+        let s = smms.integerValue
+        
+        let calculation = StackCalculator.mms(lambda,miu,s)
+    }
+    
     
 
 
