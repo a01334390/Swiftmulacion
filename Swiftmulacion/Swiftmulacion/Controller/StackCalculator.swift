@@ -142,6 +142,30 @@ class StackCalculator {
         
         return (ro,Lq,L,Wq,W)
     }
+    /**
+     Calcula el evento M/D/1 de teoria de colas
+     - Parameters:
+        - lambda: (Double) Tasa promedio de llegada
+        - miu: (Double) Tasa promedio de servicio
+        - s: (Double) Desviacion Estandar
+        - k: (Double) Limite de la fila
+     - Returns:
+        - 𝜌: (Double) Tasa de utilización
+        - Lq: (Double) Numero promedio de clientes en la cola
+        - L: (Double) Numero promedio de clientes en el sistema
+        - Wq: (Double) Numero esperado en la cola
+        - W: (Double) ’Tiempo promedio en el sistema
+ 
+    */
+    static func md1(_ lambda:Double,_ miu:Double,_ s:Int,_ k:Int) -> (Double,Double,Double,Double,Double) {
+        let ro:Double = lambda/miu
+        let Lq:Double = (pow(ro,2)) / (2*(1-ro))
+        let L:Double = ro + Lq
+        let Wq:Double = Lq / lambda
+        let W:Double = Wq + (1/miu)
+        
+        return (ro,Lq,L,Wq,W)
+    }
     
     /**
      Calcula el factorial de un numero entero
