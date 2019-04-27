@@ -26,10 +26,20 @@ class ViewController: NSViewController {
     @IBOutlet weak var kmmsk: NSTextField!
     
     /** M/G/1 fields */
-    @IBOutlet weak var lambdamg1: NSTextField!
+    @IBOutlet weak var lambdamg1: NSView!
     @IBOutlet weak var miumg1: NSTextField!
-    @IBOutlet weak var smg1: NSTextField!
-    @IBOutlet weak var kmg1: NSTextField!
+    @IBOutlet weak var estdvmg1: NSTextField!
+    
+    /** M/D/1 fields */
+    @IBOutlet weak var lambdamd1: NSTextField!
+    @IBOutlet weak var miumd1: NSTextField!
+    @IBOutlet weak var smd1: NSTextField!
+    
+    /** M/Ek/1 fields */
+    @IBOutlet weak var lambdamek1: NSTextField!
+    @IBOutlet weak var miumek1: NSTextField!
+    @IBOutlet weak var nmek1: NSTextFieldCell!
+    @IBOutlet weak var kmek1: NSTextField!
     
     /** M/M/1 Answer Fields */
     @IBOutlet weak var romm1: NSTextField!
@@ -58,6 +68,22 @@ class ViewController: NSViewController {
     @IBOutlet weak var lmg1: NSTextField!
     @IBOutlet weak var wqmg1: NSTextField!
     @IBOutlet weak var wmg1: NSTextField!
+    
+    /** M/D/1 Answer fields */
+    @IBOutlet weak var romd1: NSTextField!
+    @IBOutlet weak var lqmd1: NSTextField!
+    @IBOutlet weak var lmd1: NSTextField!
+    @IBOutlet weak var wqmd1: NSTextField!
+    @IBOutlet weak var wmd1: NSTextField!
+    
+    
+    /** M/Ek/1 Answer fields */
+    @IBOutlet weak var romek1: NSTextField!
+    @IBOutlet weak var lqmek1: NSTextField!
+    @IBOutlet weak var lmek1: NSTextField!
+    @IBOutlet weak var wqmek1: NSTextField!
+    @IBOutlet weak var wmek1: NSTextField!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,20 +139,36 @@ class ViewController: NSViewController {
         wmmsk.stringValue = "W: \(calculation.4)"
     }
     
-    @IBAction func calculateMG1(_ sender: Any) {
-        let lambda = lambdamg1.doubleValue
-        let miu = miumg1.doubleValue
-        let s = smg1.integerValue
-        let k = kmg1.integerValue
+    @IBAction func calculateMG(_ sender: Any) {
         
-        let calculation = StackCalculator.mg1(lambda, miu, s, k)
-        
-        romg1.stringValue =  "𝜌: \(calculation.0)"
-        lqmg1.stringValue = "Lq: \(calculation.1)"
-        lmg1.stringValue = "L:\(calculation.2)"
-        wqmg1.stringValue = "Wq: \(calculation.3)"
-        wmg1.stringValue = "W: \(calculation.4)"
     }
+    
+    @IBAction func calculateMD1(_ sender: Any) {
+    }
+    
+    @IBAction func calculateMEK(_ sender: Any) {
+    }
+    
+    /**
+     Crea una notificación para el Notification Center
+     - Parameters:
+        -title: (String) El titulo de la notificacion
+        -subtitle: (String) El subtitulo de la notificacion
+        -informativeText: (String) Texto informativo
+    */
+    func createNotification(_ title:String, _ subtitle:String, _ informativeText:String ){
+        // Create the notification and setup information
+        let notification = NSUserNotification()
+        notification.identifier = UUID().uuidString
+        notification.title = title
+        notification.subtitle = subtitle
+        notification.informativeText = informativeText
+        notification.soundName = NSUserNotificationDefaultSoundName
+        // Manually display the notification
+        let notificationCenter = NSUserNotificationCenter.default
+        notificationCenter.deliver(notification)
+    }
+    
     
 }
 
