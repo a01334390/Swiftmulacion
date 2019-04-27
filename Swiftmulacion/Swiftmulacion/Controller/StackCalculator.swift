@@ -132,9 +132,9 @@ class StackCalculator {
         - Wq: (Double) Numero esperado en la cola
         - W: (Double) Tiempo promedio en el sistema
      */
-    static func mg1(_ lambda:Double,_ miu:Double,_ s:Int) -> (Double,Double,Double,Double,Double){
+    static func mg1(_ lambda:Double,_ miu:Double,_ s:Double) -> (Double,Double,Double,Double,Double){
         let ro:Double = lambda/miu
-        let Lq:Double = (pow(lambda,2)*pow(Double(s),2)+pow(ro,2)) / (2*(1-ro))
+        let Lq:Double = (pow(lambda,2)*pow(s,2)+pow(ro,2)) / (2*(1-ro))
         let L:Double = ro + Lq
         let Wq:Double = Lq / lambda
         let W:Double = Wq + (1/miu)
@@ -147,7 +147,6 @@ class StackCalculator {
         - lambda: (Double) Tasa promedio de llegada
         - miu: (Double) Tasa promedio de servicio
         - s: (Double) Desviacion Estandar
-        - k: (Double) Limite de la fila
      - Returns:
         - 𝜌: (Double) Tasa de utilización
         - Lq: (Double) Numero promedio de clientes en la cola
@@ -156,7 +155,7 @@ class StackCalculator {
         - W: (Double) ’Tiempo promedio en el sistema
  
     */
-    static func md1(_ lambda:Double,_ miu:Double,_ s:Int) -> (Double,Double,Double,Double,Double) {
+    static func md1(_ lambda:Double,_ miu:Double) -> (Double,Double,Double,Double,Double) {
         let ro:Double = lambda/miu
         let Lq:Double = (pow(ro,2)) / (2*(1-ro))
         let L:Double = ro + Lq
@@ -181,8 +180,9 @@ class StackCalculator {
          - W: (Double) ’Tiempo promedio en el sistema
      
      */
-    static func mek1(_ lambda:Double,_ miu:Double,_ s:Double,_ k:Double ) -> (Double,Double,Double,Double,Double){
+    static func mek1(_ lambda:Double,_ miu:Double,_ k:Double ) -> (Double,Double,Double,Double,Double){
         let ro:Double = lambda/miu
+        let s:Double = (1 / sqrt(k)) * (1 / miu)
         let Lq:Double = (pow(lambda,2)*pow(Double(s),2)+pow(ro,2)) / (2*(1-ro))
         let Wq:Double = Lq / lambda
         let W:Double = Wq + (1/miu)

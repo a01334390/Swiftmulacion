@@ -33,12 +33,10 @@ class ViewController: NSViewController {
     /** M/D/1 fields */
     @IBOutlet weak var lambdamd1: NSTextField!
     @IBOutlet weak var miumd1: NSTextField!
-    @IBOutlet weak var smd1: NSTextField!
     
     /** M/Ek/1 fields */
     @IBOutlet weak var lambdamek1: NSTextField!
     @IBOutlet weak var miumek1: NSTextField!
-    @IBOutlet weak var nmek1: NSTextFieldCell!
     @IBOutlet weak var kmek1: NSTextField!
     
     /** M/M/1 Answer Fields */
@@ -236,12 +234,19 @@ class ViewController: NSViewController {
             }
         }
         
+        let calculation = StackCalculator.mg1(lambda, miu, estd)
+        
+        romg1.stringValue =  "𝜌: \(calculation.0)"
+        lqmg1.stringValue = "Lq: \(calculation.1)"
+        lmg1.stringValue = "L:\(calculation.2)"
+        wqmg1.stringValue = "Wq: \(calculation.3)"
+        wmg1.stringValue = "W: \(calculation.4)"
+        
     }
     
     @IBAction func calculateMD1(_ sender: Any) {
         let lambda = lambdamd1.doubleValue
         let miu = miumd1.doubleValue
-        let s = smd1.doubleValue
         
         if lambda <= 0 {
             if dialogOK("Cuidado", messages[0]) {
@@ -257,19 +262,19 @@ class ViewController: NSViewController {
             }
         }
         
-        if s <= 0 {
-            if dialogOK("Cuidado", "El valor de s debe ser mayor a cero") {
-                smd1.stringValue = ""
-                return
-            }
-        }
+        let calculation = StackCalculator.md1(lambda, miu)
+        
+        romd1.stringValue =  "𝜌: \(calculation.0)"
+        lqmd1.stringValue = "Lq: \(calculation.1)"
+        lmd1.stringValue = "L:\(calculation.2)"
+        wqmd1.stringValue = "Wq: \(calculation.3)"
+        wmd1.stringValue = "W: \(calculation.4)"
     }
     
     @IBAction func calculateMEK(_ sender: Any) {
         let lambda = lambdamek1.doubleValue
         let miu = miumek1.doubleValue
         let k = kmek1.doubleValue
-        let n = nmek1.doubleValue
         
         if lambda <= 0 {
             if dialogOK("Cuidado", messages[0]) {
@@ -298,11 +303,13 @@ class ViewController: NSViewController {
             }
         }
         
-        if n <= 0 {
-            if dialogOK("Cuidado", "El valor de n no puede ser menor a cero") {
-                nmek1.stringValue = ""
-            }
-        }
+        let calculation = StackCalculator.mek1(lambda, miu, k)
+        
+        romek1.stringValue =  "𝜌: \(calculation.0)"
+        lqmek1.stringValue = "Lq: \(calculation.1)"
+        lmek1.stringValue = "L:\(calculation.2)"
+        wqmek1.stringValue = "Wq: \(calculation.3)"
+        wmek1.stringValue = "W: \(calculation.4)"
         
     }
     
