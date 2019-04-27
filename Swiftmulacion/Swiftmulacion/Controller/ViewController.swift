@@ -26,7 +26,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var kmmsk: NSTextField!
     
     /** M/G/1 fields */
-    @IBOutlet weak var lambdamg1: NSView!
+    @IBOutlet weak var lambdamg1: NSTextField!
     @IBOutlet weak var miumg1: NSTextField!
     @IBOutlet weak var estdvmg1: NSTextField!
     
@@ -84,6 +84,14 @@ class ViewController: NSViewController {
     @IBOutlet weak var wqmek1: NSTextField!
     @IBOutlet weak var wmek1: NSTextField!
     
+    /** Warning messages */
+    let messages:[String] = [
+        "El valor de λ debe ser mayor a cero",
+        "El valor de µ debe ser mayor a cero",
+        "El valor de s debe ser mayor a cero",
+        "El valor de k debe ser mayor a cero"
+    ]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -101,6 +109,20 @@ class ViewController: NSViewController {
         let lambda = lambdamm1.doubleValue
         let miu = miumm1.doubleValue
         
+        if lambda <= 0 {
+            if dialogOK("Cuidado", messages[0]) {
+                lambdamm1.stringValue = ""
+                return
+            }
+        }
+        
+        if miu <= 0 {
+            if dialogOK("Cuidad", messages[1]) {
+                miumm1.stringValue = ""
+                return
+            }
+        }
+        
         let calculation = StackCalculator.mm1(lambda, miu)
         
         romm1.stringValue =  "𝜌: \(calculation.0)"
@@ -114,6 +136,28 @@ class ViewController: NSViewController {
         let lambda = lambdamms.doubleValue
         let miu = miumms.doubleValue
         let s = smms.integerValue
+        
+        if lambda <= 0 {
+            if dialogOK("Cuidado", messages[0]) {
+                lambdamms.stringValue = ""
+                return
+            }
+        }
+        
+        if miu <= 0 {
+            if dialogOK("Cuidado", messages[1]) {
+                miumms.stringValue = ""
+                return
+            }
+        }
+        
+        if s <= 0 {
+            if dialogOK("Cuidado", messages[2]){
+                smms.stringValue = ""
+                return
+            }
+        }
+        
         
         let calculation = StackCalculator.mms(lambda,miu,s)
         
@@ -130,6 +174,33 @@ class ViewController: NSViewController {
         let s = smmsk.integerValue
         let k = kmmsk.integerValue
         
+        if lambda <= 0 {
+            if dialogOK("Cuidado", messages[0]) {
+                lambdammsk.stringValue = ""
+                return
+            }
+        }
+        
+        if miu <= 0 {
+            if dialogOK("Cuidado", messages[1]) {
+                miummsk.stringValue = ""
+                return
+            }
+        }
+        
+        if s <= 0 {
+            if dialogOK("Cuidado", messages[2]){
+                smmsk.stringValue = ""
+                return
+            }
+        }
+        
+        if k <= 0 {
+            if dialogOK("Cuidado", messages[3]) {
+                kmmsk.stringValue = ""
+            }
+        }
+        
         let calculation = StackCalculator.mmsk(lambda,miu,s,k)
         
         rommsk.stringValue =  "𝜌: \(calculation.0)"
@@ -140,21 +211,119 @@ class ViewController: NSViewController {
     }
     
     @IBAction func calculateMG(_ sender: Any) {
+        let lambda = lambdamg1.doubleValue
+        let miu =  miumg1.doubleValue
+        let estd =  estdvmg1.doubleValue
+        
+        if lambda <= 0 {
+            if dialogOK("Cuidado", messages[0]) {
+                lambdamg1.stringValue = ""
+                return
+            }
+        }
+        
+        if miu <= 0 {
+            if dialogOK("Cuidado", messages[1]) {
+                miumg1.stringValue = ""
+                return
+            }
+        }
+        
+        if estd <= 0 {
+            if dialogOK("Cuidado", "El valor de la desviación estandar debe ser mayor a cero") {
+                estdvmg1.stringValue = ""
+                return
+            }
+        }
         
     }
     
     @IBAction func calculateMD1(_ sender: Any) {
+        let lambda = lambdamd1.doubleValue
+        let miu = miumd1.doubleValue
+        let s = smd1.doubleValue
+        
+        if lambda <= 0 {
+            if dialogOK("Cuidado", messages[0]) {
+                lambdamd1.stringValue = ""
+                return
+            }
+        }
+        
+        if miu <= 0 {
+            if dialogOK("Cuidado", messages[1]) {
+                miumd1.stringValue = ""
+                return
+            }
+        }
+        
+        if s <= 0 {
+            if dialogOK("Cuidado", "El valor de s debe ser mayor a cero") {
+                smd1.stringValue = ""
+                return
+            }
+        }
     }
     
     @IBAction func calculateMEK(_ sender: Any) {
+        let lambda = lambdamek1.doubleValue
+        let miu = miumek1.doubleValue
+        let k = kmek1.doubleValue
+        let n = nmek1.doubleValue
+        
+        if lambda <= 0 {
+            if dialogOK("Cuidado", messages[0]) {
+                lambdamek1.stringValue = ""
+                return
+            }
+        }
+        
+        if miu <= 0 {
+            if dialogOK("Cuidado", messages[1]) {
+                miumek1.stringValue = ""
+                return
+            }
+        }
+        
+        if lambda >= miu {
+            if dialogOK("Cuidado", "El valor de µ debe ser mayor al valor de λ") {
+                miumek1.stringValue = ""
+                lambdamek1.stringValue = ""
+            }
+        }
+        
+        if k <= 0 {
+            if dialogOK("Cuidado", messages[3]) {
+                kmek1.stringValue = ""
+            }
+        }
+        
+        if n <= 0 {
+            if dialogOK("Cuidado", "El valor de n no puede ser menor a cero") {
+                nmek1.stringValue = ""
+            }
+        }
+        
+    }
+    
+    /**
+     Crea un dialogo normal
+    */
+    func dialogOK(_ question: String,_ text: String) -> Bool {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        return alert.runModal() == .alertFirstButtonReturn
     }
     
     /**
      Crea una notificación para el Notification Center
      - Parameters:
-        -title: (String) El titulo de la notificacion
-        -subtitle: (String) El subtitulo de la notificacion
-        -informativeText: (String) Texto informativo
+            - title: (String) El titulo de la notificacion
+            - subtitle: (String) El subtitulo de la notificacion
+            - informativeText: (String) Texto informativo
     */
     func createNotification(_ title:String, _ subtitle:String, _ informativeText:String ){
         // Create the notification and setup information

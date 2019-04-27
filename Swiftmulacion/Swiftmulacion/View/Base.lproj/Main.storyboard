@@ -1153,7 +1153,7 @@
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem label="M/G/1" identifier="" id="qyR-do-p4V">
-                                        <view key="view" id="n0G-hP-Liw">
+                                        <view key="view" ambiguous="YES" id="n0G-hP-Liw">
                                             <rect key="frame" x="10" y="33" width="698" height="280"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
@@ -1409,7 +1409,7 @@
                                         </view>
                                     </tabViewItem>
                                     <tabViewItem label="M/Ek/1" identifier="" id="hgG-em-rGd">
-                                        <view key="view" ambiguous="YES" id="Fdo-vP-X4j">
+                                        <view key="view" id="Fdo-vP-X4j">
                                             <rect key="frame" x="10" y="33" width="698" height="280"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
@@ -1564,7 +1564,7 @@
                         <outlet property="kmmsk" destination="OtB-ML-wSH" id="zvz-va-SmA"/>
                         <outlet property="lambdamd1" destination="cFO-gj-a1F" id="V8L-b2-JDp"/>
                         <outlet property="lambdamek1" destination="KoS-ZC-I3u" id="yp7-4H-ZGO"/>
-                        <outlet property="lambdamg1" destination="n0G-hP-Liw" id="ll1-Cs-jK1"/>
+                        <outlet property="lambdamg1" destination="p6d-wW-pAI" id="C33-Bs-Qh6"/>
                         <outlet property="lambdamm1" destination="xlB-OM-oZ3" id="tvj-zt-uYY"/>
                         <outlet property="lambdamms" destination="dak-ZC-WHj" id="Yrd-nV-Sg4"/>
                         <outlet property="lambdammsk" destination="MrT-Lp-VYv" id="LLy-Gh-ZNu"/>
