@@ -5,6 +5,48 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--About-->
+        <scene sceneID="QHS-mt-K7K">
+            <objects>
+                <viewController title="About" id="xpS-GX-2mf" sceneMemberID="viewController">
+                    <view key="view" id="I5N-el-bUx">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="170"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RTL-eq-yFB">
+                                <rect key="frame" x="18" y="112" width="381" height="38"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="charWrapping" alignment="left" title="Proyecto de simulación" id="YUc-Bn-B7I">
+                                    <font key="font" metaFont="systemBold" size="30"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dBf-2q-7wA">
+                                <rect key="frame" x="20" y="99" width="374" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Versión 1.0.0" id="97B-hJ-nFl">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Z4Q-az-mFM">
+                                <rect key="frame" x="20" y="81" width="374" height="17"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="https://github.com/a01334390/Swiftmulacion" id="2sy-fl-m9c">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                    </view>
+                </viewController>
+                <customObject id="DyW-Wg-7O2" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="675" y="4"/>
+        </scene>
         <!--Application-->
         <scene sceneID="JPo-4y-FX3">
             <objects>
@@ -19,6 +61,7 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="orderFrontStandardAboutPanel:" target="Ady-hI-5gd" id="Exp-CZ-Vem"/>
+                                                <segue destination="xpS-GX-2mf" kind="show" id="wo1-eA-0g4"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
@@ -874,6 +917,7 @@
                                                             </textField>
                                                         </subviews>
                                                     </view>
+                                                    <font key="titleFont" metaFont="smallSystem"/>
                                                 </box>
                                             </subviews>
                                         </view>
@@ -937,6 +981,7 @@
                                                             </textField>
                                                         </subviews>
                                                     </view>
+                                                    <font key="titleFont" metaFont="smallSystem"/>
                                                 </box>
                                                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dak-ZC-WHj">
                                                     <rect key="frame" x="17" y="181" width="379" height="22"/>
@@ -1065,6 +1110,7 @@
                                                             </textField>
                                                         </subviews>
                                                     </view>
+                                                    <font key="titleFont" metaFont="smallSystem"/>
                                                 </box>
                                                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MrT-Lp-VYv">
                                                     <rect key="frame" x="13" y="221" width="379" height="22"/>
@@ -1211,6 +1257,7 @@
                                                             </textField>
                                                         </subviews>
                                                     </view>
+                                                    <font key="titleFont" metaFont="smallSystem"/>
                                                 </box>
                                                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p6d-wW-pAI">
                                                     <rect key="frame" x="17" y="204" width="379" height="22"/>
@@ -1339,6 +1386,7 @@
                                                             </textField>
                                                         </subviews>
                                                     </view>
+                                                    <font key="titleFont" metaFont="smallSystem"/>
                                                 </box>
                                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="COB-09-Myf">
                                                     <rect key="frame" x="313" y="33" width="89" height="32"/>
@@ -1449,6 +1497,7 @@
                                                             </textField>
                                                         </subviews>
                                                     </view>
+                                                    <font key="titleFont" metaFont="smallSystem"/>
                                                 </box>
                                                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gf2-gP-EGb">
                                                     <rect key="frame" x="313" y="7" width="89" height="32"/>
