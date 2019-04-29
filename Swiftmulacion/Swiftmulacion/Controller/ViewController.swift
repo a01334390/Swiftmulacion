@@ -45,6 +45,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var lmm1: NSTextField!
     @IBOutlet weak var wqmm1: NSTextField!
     @IBOutlet weak var wmm1: NSTextField!
+    @IBOutlet weak var costomm1: NSTextField!
     
     /** M/M/s Answer fields */
     @IBOutlet weak var romms: NSTextField!
@@ -52,6 +53,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var lmms: NSTextField!
     @IBOutlet weak var wqmms: NSTextField!
     @IBOutlet weak var wmms: NSTextField!
+    @IBOutlet weak var costomms: NSTextField!
     
      /** M/M/s/K Answer fields */
     @IBOutlet weak var rommsk: NSTextField!
@@ -59,6 +61,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var lmmsk: NSTextField!
     @IBOutlet weak var wqmmsk: NSTextField!
     @IBOutlet weak var wmmsk: NSTextField!
+    @IBOutlet weak var costommsk: NSTextField!
     
     /** M/G/1 Answer fields */
     @IBOutlet weak var romg1: NSTextField!
@@ -66,6 +69,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var lmg1: NSTextField!
     @IBOutlet weak var wqmg1: NSTextField!
     @IBOutlet weak var wmg1: NSTextField!
+    @IBOutlet weak var costomg1: NSTextField!
     
     /** M/D/1 Answer fields */
     @IBOutlet weak var romd1: NSTextField!
@@ -73,7 +77,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var lmd1: NSTextField!
     @IBOutlet weak var wqmd1: NSTextField!
     @IBOutlet weak var wmd1: NSTextField!
-    
+    @IBOutlet weak var costomd1: NSTextField!
     
     /** M/Ek/1 Answer fields */
     @IBOutlet weak var romek1: NSTextField!
@@ -81,6 +85,11 @@ class ViewController: NSViewController {
     @IBOutlet weak var lmek1: NSTextField!
     @IBOutlet weak var wqmek1: NSTextField!
     @IBOutlet weak var wmek1: NSTextField!
+    @IBOutlet weak var costomek1: NSTextField!
+    
+    /** Cs Cw*/
+    @IBOutlet weak var cwLabel: NSTextField!
+    @IBOutlet weak var csLabel: NSTextField!
     
     /** Warning messages */
     let messages:[String] = [
@@ -128,6 +137,7 @@ class ViewController: NSViewController {
         lmm1.stringValue = "L:\(calculation.2)"
         wqmm1.stringValue = "Wq: \(calculation.3)"
         wmm1.stringValue = "W: \(calculation.4)"
+        costomm1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
     }
     
     @IBAction func calculateMMS(_ sender: Any) {
@@ -164,6 +174,7 @@ class ViewController: NSViewController {
         lmms.stringValue = "L:\(calculation.2)"
         wqmms.stringValue = "Wq: \(calculation.3)"
         wmms.stringValue = "W: \(calculation.4)"
+        costomms.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, Double(s)))"
     }
     
     @IBAction func calculateMMSK(_ sender: Any) {
@@ -206,6 +217,7 @@ class ViewController: NSViewController {
         lmmsk.stringValue = "L:\(calculation.2)"
         wqmmsk.stringValue = "Wq: \(calculation.3)"
         wmmsk.stringValue = "W: \(calculation.4)"
+        costommsk.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, Double(s)))"
     }
     
     @IBAction func calculateMG(_ sender: Any) {
@@ -241,7 +253,7 @@ class ViewController: NSViewController {
         lmg1.stringValue = "L:\(calculation.2)"
         wqmg1.stringValue = "Wq: \(calculation.3)"
         wmg1.stringValue = "W: \(calculation.4)"
-        
+        costomg1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
     }
     
     @IBAction func calculateMD1(_ sender: Any) {
@@ -269,6 +281,7 @@ class ViewController: NSViewController {
         lmd1.stringValue = "L:\(calculation.2)"
         wqmd1.stringValue = "Wq: \(calculation.3)"
         wmd1.stringValue = "W: \(calculation.4)"
+        costomd1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
     }
     
     @IBAction func calculateMEK(_ sender: Any) {
@@ -310,7 +323,7 @@ class ViewController: NSViewController {
         lmek1.stringValue = "L:\(calculation.2)"
         wqmek1.stringValue = "Wq: \(calculation.3)"
         wmek1.stringValue = "W: \(calculation.4)"
-        
+        costomek1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
     }
     
     /**
@@ -343,6 +356,20 @@ class ViewController: NSViewController {
         // Manually display the notification
         let notificationCenter = NSUserNotificationCenter.default
         notificationCenter.deliver(notification)
+    }
+    
+    /**
+     Calcula el costo total
+    */
+    func calculateTotalCost(_ lq:Double, _ s:Double) -> Double{
+        if cwLabel.doubleValue < 0 || csLabel.doubleValue < 0{
+            if dialogOK("Cuidado", "Los valores del costo no pueden ser menores a cero") {
+                cwLabel.stringValue = ""
+                csLabel.stringValue = ""
+                return 0.0
+            }
+        }
+        return lq*cwLabel.doubleValue + s*csLabel.doubleValue
     }
     
     
