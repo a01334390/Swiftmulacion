@@ -29,8 +29,8 @@ class StackCalculator {
         let ro = lambda / miu
         let Lq = (pow(lambda, 2))/(miu*(miu-lambda))
         let L = lambda / (miu - lambda)
-        let Wq = lambda / miu*(miu-lambda)
-        let W = 1 / (miu - lambda)
+        let Wq = Lq / lambda
+        let W = L / lambda
         
         return (ro,Lq,L,Wq,W)
     }
