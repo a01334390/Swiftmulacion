@@ -32,15 +32,18 @@ class ViewController: NSViewController {
     @IBOutlet weak var lambdamg1: NSTextField!
     @IBOutlet weak var miumg1: NSTextField!
     @IBOutlet weak var estdvmg1: NSTextField!
+    @IBOutlet weak var nmg1: NSTextField!
     
     /** M/D/1 fields */
     @IBOutlet weak var lambdamd1: NSTextField!
     @IBOutlet weak var miumd1: NSTextField!
+    @IBOutlet weak var nmd1: NSTextField!
     
     /** M/Ek/1 fields */
     @IBOutlet weak var lambdamek1: NSTextField!
     @IBOutlet weak var miumek1: NSTextField!
     @IBOutlet weak var kmek1: NSTextField!
+    @IBOutlet weak var nmek1: NSTextField!
     
     /** M/M/1 Answer Fields */
     @IBOutlet weak var romm1: NSTextField!
@@ -79,6 +82,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var wqmg1: NSTextField!
     @IBOutlet weak var wmg1: NSTextField!
     @IBOutlet weak var costomg1: NSTextField!
+    @IBOutlet weak var pnmg1: NSTextField!
+    @IBOutlet weak var p0mg1: NSTextField!
     
     /** M/D/1 Answer fields */
     @IBOutlet weak var romd1: NSTextField!
@@ -87,6 +92,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var wqmd1: NSTextField!
     @IBOutlet weak var wmd1: NSTextField!
     @IBOutlet weak var costomd1: NSTextField!
+    @IBOutlet weak var pnmd1: NSTextField!
+    @IBOutlet weak var p0md1: NSTextField!
     
     /** M/Ek/1 Answer fields */
     @IBOutlet weak var romek1: NSTextField!
@@ -95,6 +102,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var wqmek1: NSTextField!
     @IBOutlet weak var wmek1: NSTextField!
     @IBOutlet weak var costomek1: NSTextField!
+    @IBOutlet weak var pnmek1: NSTextField!
+    @IBOutlet weak var p0mek1: NSTextField!
     
     /** Cs Cw*/
     @IBOutlet weak var cwLabel: NSTextField!
@@ -141,13 +150,6 @@ class ViewController: NSViewController {
             }
         }
         
-        if n <= 0 {
-            if dialogOK("Cuidado", messages[4]) {
-                miumm1.stringValue = ""
-                return
-            }
-        }
-        
         let calculation = StackCalculator.mm1(lambda, miu,n)
         
         romm1.stringValue =  "𝜌: \(calculation.0)"
@@ -155,9 +157,13 @@ class ViewController: NSViewController {
         lmm1.stringValue = "L: \(calculation.2)"
         wqmm1.stringValue = "Wq: \(calculation.3)"
         wmm1.stringValue = "W: \(calculation.4)"
-        costomm1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
-        p0mm1.stringValue = "P_0: \(calculation.5)"
-        pnmm1.stringValue = "P_n: \(calculation.6)"
+        if cwLabel.doubleValue > 0 {
+            costomm1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
+        }
+        if n > 0 {
+            p0mm1.stringValue = "P_0: \(calculation.5)"
+            pnmm1.stringValue = "P_n: \(calculation.6)"
+        }
         
     }
     
@@ -188,13 +194,6 @@ class ViewController: NSViewController {
             }
         }
         
-        if n <= 0 {
-            if dialogOK("Cuidado", messages[4]) {
-                miumm1.stringValue = ""
-                return
-            }
-        }
-        
         
         let calculation = StackCalculator.mms(lambda,miu,s,n)
         
@@ -203,9 +202,13 @@ class ViewController: NSViewController {
         lmms.stringValue = "L: \(calculation.2)"
         wqmms.stringValue = "Wq: \(calculation.3)"
         wmms.stringValue = "W: \(calculation.4)"
-        costomms.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, Double(s)))"
-        p0mms.stringValue = "P_0: \(calculation.5)"
-        pnmms.stringValue = "P_n: \(calculation.6)"
+        if cwLabel.doubleValue > 0 {
+            costomms.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, Double(s)))"
+        }
+        if n > 0 {
+            p0mms.stringValue = "P_0: \(calculation.5)"
+            pnmms.stringValue = "P_n: \(calculation.6)"
+        }
     }
     
     @IBAction func calculateMMSK(_ sender: Any) {
@@ -242,13 +245,6 @@ class ViewController: NSViewController {
             }
         }
         
-        if n <= 0 {
-            if dialogOK("Cuidado", messages[4]) {
-                miumm1.stringValue = ""
-                return
-            }
-        }
-        
         let calculation = StackCalculator.mmsk(lambda,miu,s,k, n)
         
         rommsk.stringValue =  "𝜌: \(calculation.0)"
@@ -256,15 +252,20 @@ class ViewController: NSViewController {
         lmmsk.stringValue = "L: \(calculation.2)"
         wqmmsk.stringValue = "Wq: \(calculation.3)"
         wmmsk.stringValue = "W: \(calculation.4)"
+        if cwLabel.doubleValue > 0 {
         costommsk.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, Double(s)))"
-        p0mmsk.stringValue = "P_0: \(calculation.5)"
-        pnmmsk.stringValue = "P_n: \(calculation.6)"
+        }
+        if n > 0 {
+            p0mmsk.stringValue = "P_0: \(calculation.5)"
+            pnmmsk.stringValue = "P_n: \(calculation.6)"
+        }
     }
     
     @IBAction func calculateMG(_ sender: Any) {
         let lambda = lambdamg1.doubleValue
         let miu =  miumg1.doubleValue
         let estd =  estdvmg1.doubleValue
+        let n = nmg1.integerValue
         
         if lambda <= 0 {
             if dialogOK("Cuidado", messages[0]) {
@@ -287,19 +288,27 @@ class ViewController: NSViewController {
             }
         }
         
-        let calculation = StackCalculator.mg1(lambda, miu, estd)
+        let calculation = StackCalculator.mg1(lambda, miu, estd, n)
         
         romg1.stringValue =  "𝜌: \(calculation.0)"
         lqmg1.stringValue = "Lq: \(calculation.1)"
         lmg1.stringValue = "L: \(calculation.2)"
         wqmg1.stringValue = "Wq: \(calculation.3)"
         wmg1.stringValue = "W: \(calculation.4)"
-        costomg1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
+        if cwLabel.doubleValue > 0 {
+            costomg1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
+        }
+        if n > 0 {
+            p0mg1.stringValue = "P_0: \(calculation.5)"
+            pnmg1.stringValue = "P_n: \(calculation.6)"
+        }
+        
     }
     
     @IBAction func calculateMD1(_ sender: Any) {
         let lambda = lambdamd1.doubleValue
         let miu = miumd1.doubleValue
+        let n = nmd1.integerValue
         
         if lambda <= 0 {
             if dialogOK("Cuidado", messages[0]) {
@@ -315,20 +324,27 @@ class ViewController: NSViewController {
             }
         }
         
-        let calculation = StackCalculator.md1(lambda, miu)
+        let calculation = StackCalculator.md1(lambda, miu, n)
         
         romd1.stringValue =  "𝜌: \(calculation.0)"
         lqmd1.stringValue = "Lq: \(calculation.1)"
         lmd1.stringValue = "L: \(calculation.2)"
         wqmd1.stringValue = "Wq: \(calculation.3)"
         wmd1.stringValue = "W: \(calculation.4)"
-        costomd1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
+        if cwLabel.doubleValue > 0 {
+            costomd1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
+        }
+        if n > 0 {
+            p0md1.stringValue = "P_0: \(calculation.5)"
+            pnmd1.stringValue = "P_n: \(calculation.6)"
+        }
     }
     
     @IBAction func calculateMEK(_ sender: Any) {
         let lambda = lambdamek1.doubleValue
         let miu = miumek1.doubleValue
         let k = kmek1.doubleValue
+        let n = nmek1.integerValue
         
         if lambda <= 0 {
             if dialogOK("Cuidado", messages[0]) {
@@ -357,14 +373,20 @@ class ViewController: NSViewController {
             }
         }
         
-        let calculation = StackCalculator.mek1(lambda, miu, k)
+        let calculation = StackCalculator.mek1(lambda, miu, k, n)
         
         romek1.stringValue =  "𝜌: \(calculation.0)"
         lqmek1.stringValue = "Lq: \(calculation.1)"
         lmek1.stringValue = "L: \(calculation.2)"
         wqmek1.stringValue = "Wq: \(calculation.3)"
         wmek1.stringValue = "W: \(calculation.4)"
-        costomek1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
+        if cwLabel.doubleValue > 0 {
+            costomek1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
+        }
+        if n > 0 {
+            p0mek1.stringValue = "P_0: \(calculation.5)"
+            pnmek1.stringValue = "P_n: \(calculation.6)"
+        }
     }
     
     /**
