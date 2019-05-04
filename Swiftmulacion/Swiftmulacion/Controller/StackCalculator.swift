@@ -96,6 +96,7 @@ class StackCalculator {
         - miu: (Double) Tasa promedio de servicio
         - s: (Int) Numero de servidores en paralelo
         - k: (Int) Limite de personas en la cola
+        - n: (Int) El estado del sistema
      - Returns:
         - 𝜌: (Double) Tasa de utilización
         - Lq: (Double) Numero promedio de clientes en la cola
@@ -103,7 +104,7 @@ class StackCalculator {
         - Wq: (Double) Numero esperado en la cola
         - W: (Double) Tiempo promedio en el sistema
      */
-    static func mmsk(_ lambda:Double,_ miu:Double,_ s:Int,_ k:Int) -> (Double,Double,Double,Double,Double){
+    static func mmsk(_ lambda:Double,_ miu:Double,_ s:Int,_ k:Int,_ n:Int) -> (Double,Double,Double,Double,Double,Double,Double){
 
         let ro:Double = lambda / (Double(s)*miu)
         let r:Double = lambda / miu
@@ -155,9 +156,18 @@ class StackCalculator {
         lambdaP = lambda * (1 - Pk!)
         W = L! / lambdaP!
         Wq = W! - 1 / miu
-
-
-        return (ro,Lq!,L!,Wq!,W!)
+        
+        /** extra */
+        var pn:Double = 0
+        if n >= 0 && n <= s && n < k {
+            pn = pow(r,Double(n)) / StackCalculator.factorial(factorialNumber: n) * po
+        } else if (n > s && n <= k) {
+            pn = (pow(r,Double(n))) / (StackCalculator.factorial(factorialNumber: n)*(pow(Double(s),Double(n-s)))) * po
+        } else if (n > k) {
+            pn = 0
+        }
+        
+        return (ro,Lq!,L!,Wq!,W!,po,pn)
     }
     
     /**

@@ -26,6 +26,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var miummsk: NSTextField!
     @IBOutlet weak var smmsk: NSTextField!
     @IBOutlet weak var kmmsk: NSTextField!
+    @IBOutlet weak var nmmsk: NSTextField!
     
     /** M/G/1 fields */
     @IBOutlet weak var lambdamg1: NSTextField!
@@ -68,6 +69,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var wqmmsk: NSTextField!
     @IBOutlet weak var wmmsk: NSTextField!
     @IBOutlet weak var costommsk: NSTextField!
+    @IBOutlet weak var pnmmsk: NSTextField!
+    @IBOutlet weak var p0mmsk: NSTextField!
     
     /** M/G/1 Answer fields */
     @IBOutlet weak var romg1: NSTextField!
@@ -210,6 +213,7 @@ class ViewController: NSViewController {
         let miu = miummsk.doubleValue
         let s = smmsk.integerValue
         let k = kmmsk.integerValue
+        let n = nmmsk.integerValue
         
         if lambda <= 0 {
             if dialogOK("Cuidado", messages[0]) {
@@ -238,7 +242,14 @@ class ViewController: NSViewController {
             }
         }
         
-        let calculation = StackCalculator.mmsk(lambda,miu,s,k)
+        if n <= 0 {
+            if dialogOK("Cuidado", messages[4]) {
+                miumm1.stringValue = ""
+                return
+            }
+        }
+        
+        let calculation = StackCalculator.mmsk(lambda,miu,s,k, n)
         
         rommsk.stringValue =  "𝜌: \(calculation.0)"
         lqmmsk.stringValue = "Lq: \(calculation.1)"
@@ -246,6 +257,8 @@ class ViewController: NSViewController {
         wqmmsk.stringValue = "Wq: \(calculation.3)"
         wmmsk.stringValue = "W: \(calculation.4)"
         costommsk.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, Double(s)))"
+        p0mmsk.stringValue = "P_0: \(calculation.5)"
+        pnmmsk.stringValue = "P_n: \(calculation.6)"
     }
     
     @IBAction func calculateMG(_ sender: Any) {
