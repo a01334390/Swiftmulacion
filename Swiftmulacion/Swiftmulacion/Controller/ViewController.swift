@@ -134,7 +134,7 @@ class ViewController: NSViewController {
         
         romm1.stringValue =  "𝜌: \(calculation.0)"
         lqmm1.stringValue = "Lq: \(calculation.1)"
-        lmm1.stringValue = "L:\(calculation.2)"
+        lmm1.stringValue = "L: \(calculation.2)"
         wqmm1.stringValue = "Wq: \(calculation.3)"
         wmm1.stringValue = "W: \(calculation.4)"
         costomm1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
@@ -171,7 +171,7 @@ class ViewController: NSViewController {
         
         romms.stringValue =  "𝜌: \(calculation.0)"
         lqmms.stringValue = "Lq: \(calculation.1)"
-        lmms.stringValue = "L:\(calculation.2)"
+        lmms.stringValue = "L: \(calculation.2)"
         wqmms.stringValue = "Wq: \(calculation.3)"
         wmms.stringValue = "W: \(calculation.4)"
         costomms.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, Double(s)))"
@@ -214,7 +214,7 @@ class ViewController: NSViewController {
         
         rommsk.stringValue =  "𝜌: \(calculation.0)"
         lqmmsk.stringValue = "Lq: \(calculation.1)"
-        lmmsk.stringValue = "L:\(calculation.2)"
+        lmmsk.stringValue = "L: \(calculation.2)"
         wqmmsk.stringValue = "Wq: \(calculation.3)"
         wmmsk.stringValue = "W: \(calculation.4)"
         costommsk.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, Double(s)))"
@@ -250,7 +250,7 @@ class ViewController: NSViewController {
         
         romg1.stringValue =  "𝜌: \(calculation.0)"
         lqmg1.stringValue = "Lq: \(calculation.1)"
-        lmg1.stringValue = "L:\(calculation.2)"
+        lmg1.stringValue = "L: \(calculation.2)"
         wqmg1.stringValue = "Wq: \(calculation.3)"
         wmg1.stringValue = "W: \(calculation.4)"
         costomg1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
@@ -278,7 +278,7 @@ class ViewController: NSViewController {
         
         romd1.stringValue =  "𝜌: \(calculation.0)"
         lqmd1.stringValue = "Lq: \(calculation.1)"
-        lmd1.stringValue = "L:\(calculation.2)"
+        lmd1.stringValue = "L: \(calculation.2)"
         wqmd1.stringValue = "Wq: \(calculation.3)"
         wmd1.stringValue = "W: \(calculation.4)"
         costomd1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
@@ -320,7 +320,7 @@ class ViewController: NSViewController {
         
         romek1.stringValue =  "𝜌: \(calculation.0)"
         lqmek1.stringValue = "Lq: \(calculation.1)"
-        lmek1.stringValue = "L:\(calculation.2)"
+        lmek1.stringValue = "L: \(calculation.2)"
         wqmek1.stringValue = "Wq: \(calculation.3)"
         wmek1.stringValue = "W: \(calculation.4)"
         costomek1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
