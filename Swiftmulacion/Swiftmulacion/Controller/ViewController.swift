@@ -13,11 +13,13 @@ class ViewController: NSViewController {
     /** M/M/1 fields */
     @IBOutlet weak var lambdamm1: NSTextField!
     @IBOutlet weak var miumm1: NSTextField!
+    @IBOutlet weak var nmm1: NSTextField!
     
     /** M/M/s fields */
     @IBOutlet weak var lambdamms: NSTextField!
     @IBOutlet weak var miumms: NSTextField!
     @IBOutlet weak var smms: NSTextField!
+    @IBOutlet weak var nmms: NSTextField!
     
     /** M/M/s/K fields */
     @IBOutlet weak var lambdammsk: NSTextField!
@@ -46,6 +48,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var wqmm1: NSTextField!
     @IBOutlet weak var wmm1: NSTextField!
     @IBOutlet weak var costomm1: NSTextField!
+    @IBOutlet weak var pnmm1: NSTextField!
+    @IBOutlet weak var p0mm1: NSTextField!
     
     /** M/M/s Answer fields */
     @IBOutlet weak var romms: NSTextField!
@@ -54,6 +58,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var wqmms: NSTextField!
     @IBOutlet weak var wmms: NSTextField!
     @IBOutlet weak var costomms: NSTextField!
+    @IBOutlet weak var pnmms: NSTextField!
+    @IBOutlet weak var p0mms: NSTextField!
     
      /** M/M/s/K Answer fields */
     @IBOutlet weak var rommsk: NSTextField!
@@ -96,7 +102,8 @@ class ViewController: NSViewController {
         "El valor de λ debe ser mayor a cero",
         "El valor de µ debe ser mayor a cero",
         "El valor de s debe ser mayor a cero",
-        "El valor de k debe ser mayor a cero"
+        "El valor de k debe ser mayor a cero",
+        "El valor de n debe ser mayor a cero"
     ]
     
     
@@ -115,6 +122,7 @@ class ViewController: NSViewController {
     @IBAction func calculateMM1(_ sender: Any) {
         let lambda = lambdamm1.doubleValue
         let miu = miumm1.doubleValue
+        let n = nmm1.integerValue
         
         if lambda <= 0 {
             if dialogOK("Cuidado", messages[0]) {
@@ -124,13 +132,20 @@ class ViewController: NSViewController {
         }
         
         if miu <= 0 {
-            if dialogOK("Cuidad", messages[1]) {
+            if dialogOK("Cuidado", messages[1]) {
                 miumm1.stringValue = ""
                 return
             }
         }
         
-        let calculation = StackCalculator.mm1(lambda, miu)
+        if n <= 0 {
+            if dialogOK("Cuidado", messages[4]) {
+                miumm1.stringValue = ""
+                return
+            }
+        }
+        
+        let calculation = StackCalculator.mm1(lambda, miu,n)
         
         romm1.stringValue =  "𝜌: \(calculation.0)"
         lqmm1.stringValue = "Lq: \(calculation.1)"
@@ -138,12 +153,16 @@ class ViewController: NSViewController {
         wqmm1.stringValue = "Wq: \(calculation.3)"
         wmm1.stringValue = "W: \(calculation.4)"
         costomm1.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, 1))"
+        p0mm1.stringValue = "P_0: \(calculation.5)"
+        pnmm1.stringValue = "P_n: \(calculation.6)"
+        
     }
     
     @IBAction func calculateMMS(_ sender: Any) {
         let lambda = lambdamms.doubleValue
         let miu = miumms.doubleValue
         let s = smms.integerValue
+        let n = nmms.integerValue
         
         if lambda <= 0 {
             if dialogOK("Cuidado", messages[0]) {
@@ -166,8 +185,15 @@ class ViewController: NSViewController {
             }
         }
         
+        if n <= 0 {
+            if dialogOK("Cuidado", messages[4]) {
+                miumm1.stringValue = ""
+                return
+            }
+        }
         
-        let calculation = StackCalculator.mms(lambda,miu,s)
+        
+        let calculation = StackCalculator.mms(lambda,miu,s,n)
         
         romms.stringValue =  "𝜌: \(calculation.0)"
         lqmms.stringValue = "Lq: \(calculation.1)"
@@ -175,6 +201,8 @@ class ViewController: NSViewController {
         wqmms.stringValue = "Wq: \(calculation.3)"
         wmms.stringValue = "W: \(calculation.4)"
         costomms.stringValue = "Costo Total: \(calculateTotalCost(calculation.1, Double(s)))"
+        p0mms.stringValue = "P_0: \(calculation.5)"
+        pnmms.stringValue = "P_n: \(calculation.6)"
     }
     
     @IBAction func calculateMMSK(_ sender: Any) {

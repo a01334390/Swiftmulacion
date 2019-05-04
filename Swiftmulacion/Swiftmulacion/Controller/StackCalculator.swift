@@ -17,22 +17,29 @@ class StackCalculator {
         - Parameters:
             - lambda: (Double) Tasa promedio de llegada
             - miu: (Double) Tasa promedio de servicio
+            - n: (Int) El estado del sistema
         - Returns:
             - 𝜌: (Double) Tasa de utilización
             - Lq: (Double) Numero promedio de clientes en la cola
             - L: (Double) Numero promedio de clientes en el sistema
             - Wq: (Double) Numero esperado en la cola
             - W: (Double) Tiempo promedio en el sistema
+            - p0: (Double) El valor de p subcero
+            - Pn: (Double) El valor de p sub-ene
     */
     
-    static func mm1(_ lambda:Double,_ miu:Double) -> (Double,Double,Double,Double,Double){
+    static func mm1(_ lambda:Double,_ miu:Double,_ n:Int) -> (Double,Double,Double,Double,Double,Double,Double){
         let ro = lambda / miu
         let Lq = (pow(lambda, 2))/(miu*(miu-lambda))
         let L = lambda / (miu - lambda)
         let Wq = Lq / lambda
         let W = L / lambda
         
-        return (ro,Lq,L,Wq,W)
+        /** Extras **/
+        let p0 = 1 - ro
+        let pn = (1 - ro) * pow(ro,Double(n))
+        
+        return (ro,Lq,L,Wq,W,p0,pn)
     }
     
     /**
@@ -41,15 +48,19 @@ class StackCalculator {
         - lambda: (Double) Tasa promedio de llegada
         - miu: (Double) Tasa promedio de servicio
         - s: (Int) Numero de servidores en paralelo
+        - n: (Int) El estado del sistema
      - Returns:
         - 𝜌: (Double) Tasa de utilización
         - Lq: (Double) Numero promedio de clientes en la cola
         - L: (Double) Numero promedio de clientes en el sistema
         - Wq: (Double) Numero esperado en la cola
         - W: (Double) Tiempo promedio en el sistema
+        - p0: (Double) El valor de p subcero
+        - Pn: (Double) El valor de p sub-ene
      */
-    static func mms(_ lambda:Double,_ miu:Double,_ s:Int) -> (Double,Double,Double,Double,Double){
+    static func mms(_ lambda:Double,_ miu:Double,_ s:Int, _ n:Int) -> (Double,Double,Double,Double,Double,Double,Double){
         let ro:Double = lambda / (Double(s) * miu)
+        let r:Double = lambda / miu
         var total:Double = 0
         
         for i in stride(from: 0, to: s, by: 1) {
@@ -68,7 +79,14 @@ class StackCalculator {
         let Wq:Double = Lq/lambda
         let W:Double = Wq + 1/miu
         
-        return (ro,Lq,L,Wq,W)
+        var pn:Double = 0
+        if n >= 0 && n < s {
+            pn = (pow(r,Double(n))) / StackCalculator.factorial(factorialNumber: n)*p0
+        } else {
+            pn = (pow(r,Double(n))) / (StackCalculator.factorial(factorialNumber: n)*(pow(Double(s),Double(n-s))))*p0
+        }
+        
+        return (ro,Lq,L,Wq,W,p0,pn)
     }
 
     /**
