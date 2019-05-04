@@ -108,7 +108,7 @@ class StackCalculator {
         let p0:Double = 1 / (total + total2*total3)
         let potRo:Double = pow(ro,Double(k-s))
         let lq2:Double = 1 - potRo - Double(k-s)*potRo*(1-ro)
-        let lq:Double = (p0*pots*ro)/(nfacs*(1-ro)*(1-ro))
+        let lq:Double = (p0*pots*ro)/(StackCalculator.factorial(factorialNumber: s)*pow(1-ro,2))
         let Lq:Double = lq*lq2
         
         let lambdaE:Double = lambda*(1-StackCalculator.pCalculus(lambda, miu, p0, Double(s), Double(k)))
@@ -182,9 +182,8 @@ class StackCalculator {
      */
     static func mek1(_ lambda:Double,_ miu:Double,_ k:Double ) -> (Double,Double,Double,Double,Double){
         let ro:Double = lambda/miu
-        let s:Double = (1 / sqrt(k)) * (1 / miu)
-        let Lq:Double = (pow(lambda,2)*pow(Double(s),2)+pow(ro,2)) / (2*(1-ro))
-        let Wq:Double = Lq / lambda
+        let Lq:Double = ((1 + k)/2*k)*((pow(lambda,2))/(miu*(miu-lambda)))
+        let Wq:Double = ((1 + k)/2*k)*(lambda/(miu*(miu-lambda)))
         let W:Double = Wq + (1/miu)
         let L:Double = lambda*W
         
@@ -221,20 +220,14 @@ class StackCalculator {
  
     */
     static func pCalculus(_ lambda:Double,_ miu:Double,_ p0:Double,_ s:Double,_ k:Double) -> Double {
-        var total:Double = 0
-        var milm:Double = 0
-        var tot: Double = 0
-        let i:Double = k
-        
-        milm = pow(lambda/miu,i)
-        if i < s {
-            tot = milm / StackCalculator.factorial(factorialNumber: Int(i))
-        } else if i >= s && i <= k {
-            tot = milm / StackCalculator.factorial(factorialNumber: Int(s)) * pow(s,(i-s))
+        let milm:Double = pow(lambda/miu,k)
+        if  k <= s {
+            return (milm / StackCalculator.factorial(factorialNumber: Int(k)))*p0
+        } else if k >= s {
+            return (milm / StackCalculator.factorial(factorialNumber: Int(s)) * pow(s,(k-s)))*p0
+        } else {
+            return 0
         }
-        
-        total += tot*p0
-        return total
     }
     
 }
