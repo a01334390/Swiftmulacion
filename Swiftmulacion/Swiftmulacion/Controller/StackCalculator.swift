@@ -159,7 +159,7 @@ class StackCalculator {
         let ro:Double = lambda/miu
         let Lq:Double = (pow(ro,2)) / (2*(1-ro))
         let L:Double = ro + Lq
-        let Wq:Double = Lq / lambda
+        let Wq:Double = (pow(ro,2) / (2*lambda*(1-ro)))
         let W:Double = Wq + (1/miu)
         
         return (ro,Lq,L,Wq,W)
