@@ -86,37 +86,61 @@ class StackCalculator {
         - W: (Double) Tiempo promedio en el sistema
      */
     static func mmsk(_ lambda:Double,_ miu:Double,_ s:Int,_ k:Int) -> (Double,Double,Double,Double,Double){
+
+
         let ro:Double = lambda / (Double(s)*miu)
-        var total:Double = 0
-        
-        for i in stride(from: 0, through: s, by: 1){
-            let pot:Double = pow(lambda/miu,Double(i))
-            let nFac:Double = StackCalculator.factorial(factorialNumber: i)
-            total += pot/nFac
+        let r:Double = lambda / miu
+        var lambdaP:Double?
+        var Pk:Double?
+        var po:Double = 0
+        var Lq:Double?
+        var L:Double?
+        var W:Double?
+        var Wq:Double?
+
+        for i in stride(from: 0, to: s+1, by: 1) {
+            po += pow(r,Double(i)) / StackCalculator.factorial(factorialNumber: i)
         }
-        
-        let pots:Double = pow(lambda/miu,Double(s))
-        let nfacs:Double = StackCalculator.factorial(factorialNumber: s)
-        let total2 = pots/nfacs
-        
-        var total3:Double = 0
-        for i in stride(from: s+1, through: k, by: 1){
-            let pot:Double = pow(ro,Double(i-s))
-            total3 += pot
+
+        var po2 = 0.0
+        for x in stride(from: s+1, to: k+1, by: 1) {
+            po2 += pow(ro,Double(x-s))
         }
-        
-        let p0:Double = 1 / (total + total2*total3)
-        let potRo:Double = pow(ro,Double(k-s))
-        let lq2:Double = 1 - potRo - Double(k-s)*potRo*(1-ro)
-        let lq:Double = (p0*pots*ro)/(StackCalculator.factorial(factorialNumber: s)*pow(1-ro,2))
-        let Lq:Double = lq*lq2
-        
-        let lambdaE:Double = lambda*(1-StackCalculator.pCalculus(lambda, miu, p0, Double(s), Double(k)))
-        let Wq:Double = Lq / lambdaE
-        let W:Double = Wq + 1/miu
-        let L: Double = lambdaE * W
-    
-        return (ro,Lq,L,Wq,W)
+
+        po += (pow(r,Double(s)) / StackCalculator.factorial(factorialNumber: s)) * po2
+        po = 1 / po
+
+        if ro != 1 {
+            let numlq1 = po * pow(Double(s)*ro,Double(s)) * ro
+            let n1 = 1.0 - pow(ro,Double(k-s))
+            let n2 = Double((k - s)) * pow(ro, Double(k - s))
+            let num =  numlq1 * (n1 - n2*(1 - ro))
+            let denom = StackCalculator.factorial(factorialNumber: s) * pow(1-ro,2)
+            Lq =  num / denom
+        } else {
+            Lq = po * pow(Double(s),Double(s)) * Double(k-s) * Double(k - s) / (2 * StackCalculator.factorial(factorialNumber: s))
+        }
+
+        for i in stride(from: 0, to: s, by: 1){
+            L = Double((s - i)) * pow(ro * Double(s),Double(i)) / StackCalculator.factorial(factorialNumber: i)
+            L = L! * -po
+            L = L! + Lq! + Double(s)
+        }
+
+        if k == 0 {
+            Pk = po
+        } else if 1 <= k && k <= s {
+            Pk = pow(r,Double(k)) * po / StackCalculator.factorial(factorialNumber: k)
+        } else {
+            Pk = pow(r,Double(k)) * po / StackCalculator.factorial(factorialNumber: s) * pow(Double(s), Double(k - s))
+        }
+
+        lambdaP = lambda * (1 - Pk!)
+        W = L! / lambdaP!
+        Wq = W! - 1 / miu
+
+
+        return (ro,Lq!,L!,Wq!,W!)
     }
     
     /**
@@ -206,28 +230,6 @@ class StackCalculator {
             a *= Double(i)
         }
         return a
-    }
-    
-    /**
-     Calculo del factor p
-     - Parameters:
-        - lambda: (Double) Tasa promedio de llegada
-        - miu: (Double) Tasa promedio de servicio
-        - p0: (Double) P sub cero
-        - s: (Double) Numero de servidores en paralelo
-        - k: (Double) Limite de personas en la cola
-     - Returns: (Double) Factor p
- 
-    */
-    static func pCalculus(_ lambda:Double,_ miu:Double,_ p0:Double,_ s:Double,_ k:Double) -> Double {
-        let milm:Double = pow(lambda/miu,k)
-        if  k <= s {
-            return (milm / StackCalculator.factorial(factorialNumber: Int(k)))*p0
-        } else if k >= s {
-            return (milm / StackCalculator.factorial(factorialNumber: Int(s)) * pow(s,(k-s)))*p0
-        } else {
-            return 0
-        }
     }
     
 }
