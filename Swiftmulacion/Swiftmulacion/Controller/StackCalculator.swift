@@ -87,7 +87,6 @@ class StackCalculator {
      */
     static func mmsk(_ lambda:Double,_ miu:Double,_ s:Int,_ k:Int) -> (Double,Double,Double,Double,Double){
 
-
         let ro:Double = lambda / (Double(s)*miu)
         let r:Double = lambda / miu
         var lambdaP:Double?
