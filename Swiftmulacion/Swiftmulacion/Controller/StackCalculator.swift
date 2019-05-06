@@ -129,7 +129,7 @@ class StackCalculator {
         po = 1 / po
 
         if ro != 1 {
-            let numlq1 = po * pow(Double(s)*ro,Double(s)) * ro
+            let numlq1 = po * pow(r,Double(s)) * ro
             let n1 = 1.0 - pow(ro,Double(k-s))
             let n2 = Double((k - s)) * pow(ro, Double(k - s))
             let num =  numlq1 * (n1 - n2*(1 - ro))
@@ -150,10 +150,12 @@ class StackCalculator {
         } else if 1 <= k && k <= s {
             Pk = pow(r,Double(k)) * po / StackCalculator.factorial(factorialNumber: k)
         } else {
-            Pk = pow(r,Double(k)) * po / StackCalculator.factorial(factorialNumber: s) * pow(Double(s), Double(k - s))
+            Pk = pow(r,Double(k)) * po / (StackCalculator.factorial(factorialNumber: s) * pow(Double(s), Double(k - s)))
         }
-
+        
         lambdaP = lambda * (1 - Pk!)
+//        Wq = Lq! / lambdaP!
+//        W = Wq! + (1 / miu)
         W = L! / lambdaP!
         Wq = W! - 1 / miu
         
@@ -168,6 +170,70 @@ class StackCalculator {
         }
         
         return (ro,Lq!,L!,Wq!,W!,po,pn)
+    }
+    
+    static func mmsk2(_ lambda:Double,_ miu:Double,_ s:Int,_ k:Int,_ n:Int) -> (Double,Double,Double,Double,Double,Double,Double){
+        
+        let ro:Double = lambda / (Double(s)*miu)
+        let r:Double = lambda / miu
+        var lambdaP:Double?
+        var Pk:Double?
+        var po:Double = 0
+        var Lq:Double?
+        var L:Double?
+        var W:Double?
+        var Wq:Double?
+        
+        // Safe data
+        for i in stride(from: 0, to: s+1, by: 1) {
+            po += pow(r,Double(i)) / StackCalculator.factorial(factorialNumber: i)
+        }
+        
+        var po2 = 0.0
+        for x in stride(from: s+1, to: k+1, by: 1) {
+            po2 += pow(ro,Double(x-s))
+        }
+        
+        po += (pow(r,Double(s)) / StackCalculator.factorial(factorialNumber: s)) * po2
+        po = 1 / po
+        
+        
+        let numlq1 = po * pow(r,Double(s)) * ro
+        let n1 = 1.0 - pow(ro,Double(k-s))
+        let n2 = Double((k - s)) * pow(ro, Double(k - s))
+        let num =  numlq1 * (n1 - n2*(1 - ro))
+        let denom = StackCalculator.factorial(factorialNumber: s) * pow(1-ro,2)
+        Lq =  num / denom
+        
+        Pk = StackCalculator.calculatePk(k,s,po,r)
+        
+        lambdaP = lambda * (1 - Pk!)
+        Wq = Lq! / lambdaP!
+        W = Wq! + (1.0 / miu)
+        L = lambdaP! * W!
+        
+        /** extra */
+        var pn:Double = 0
+        if n >= 0 && n <= s && n < k {
+            pn = pow(r,Double(n)) / StackCalculator.factorial(factorialNumber: n) * po
+        } else if (n > s && n <= k) {
+            pn = (pow(r,Double(n))) / (StackCalculator.factorial(factorialNumber: n)*(pow(Double(s),Double(n-s)))) * po
+        } else if (n > k) {
+            pn = 0
+        }
+        
+        return (ro,Lq!,L!,Wq!,W!,po,pn)
+    }
+    
+    static func calculatePk(_ k:Int,_ s:Int,_ po:Double,_ r:Double) -> Double {
+        let n = k
+        if n >= 0 && n <= s && n < k {
+            return pow(r,Double(n)) / StackCalculator.factorial(factorialNumber: n) * po
+        } else if n > s && n <= k {
+            return (pow(r,Double(n))) / (StackCalculator.factorial(factorialNumber: n)*(pow(Double(s),Double(n-s)))) * po
+        } else {
+            return 0
+        }
     }
     
     /**

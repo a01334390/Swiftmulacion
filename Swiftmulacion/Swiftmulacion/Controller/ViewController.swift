@@ -245,7 +245,7 @@ class ViewController: NSViewController {
             }
         }
         
-        let calculation = StackCalculator.mmsk(lambda,miu,s,k, n)
+        let calculation = StackCalculator.mmsk2(lambda,miu,s,k, n)
         
         rommsk.stringValue =  "𝜌: \(calculation.0)"
         lqmmsk.stringValue = "Lq: \(calculation.1)"
